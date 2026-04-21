@@ -87,6 +87,9 @@ CameraSoft_v2/
 
 - DetectorColorThreshold — детекция по цветовому порогу в HSV с морфологической фильтрацией и слиянием контуров
 
+- DetectorColorThresholdKalman — детекция DetectorColorThreshold с добавлением фильтра Калмана для сглаживания траектории.
+
+
 ### Visualizer (src/visualizer.py)
 
 Базовый класс для отрисовки данных на кадре.
