@@ -1,0 +1,40 @@
+{
+    "schema_version": 1,
+    "roi": [
+        114,
+        66,
+        945,
+        617
+    ],
+    "px_per_mm": [
+        3.1,
+        6.0
+    ],
+    "scale_mm": [
+        40.0,
+        40.0
+    ],
+    "scale_px": [
+        124,
+        240
+    ],
+    "is_scaled": true,
+    "init_position": [
+        710,
+        291
+    ],
+    "sample_size": [
+        132,
+        231
+    ],
+    "sample_color": [
+        36.0,
+        66.0,
+        79.0
+    ],
+    "background_color": [
+        131.0,
+        148.0,
+        150.0
+    ]
+}
