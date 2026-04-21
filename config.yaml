@@ -1,0 +1,108 @@
+# =============================================================================
+# КОНФИГУРАЦИЯ MOUSE MAZE TRACKER
+# =============================================================================
+
+source:
+  type: file                    # camera / file
+  camera_id: 0
+  file_path: "ImportData/2026-03-27 15-52-44.mkv"
+  fps: 30.0
+  roi: null                     # [x, y, w, h] или null
+
+calibration:
+  path: "ExportData/calibration.json"
+  auto_load: true
+  
+  # Измените список на словарь с флагами
+  stages:
+    roi: true           # Выделение области интереса
+    sample: true        # Выделение образца мыши
+    size: true         # Калибровка физического размера (мм)
+    
+    # Параметры для калибровки размера (если size: true)
+    size_params:
+      width_mm: 40.0
+      height_mm: 40.0
+
+detector:
+  type: color_threshold_kalman  # stub/color_threshold/color_threshold_kalman
+  
+  # Параметры порогов (color_threshold/color_threshold_kalman)
+  threshold:
+    # HSV параметры
+    h_mean: 0
+    h_delta: 60
+    s_mean: 0
+    s_delta: 60
+    v_mean: 0
+    v_delta: 60
+    
+    # Размер объекта
+    size_mean: 1000.0
+    size_ratio: 6.0
+    
+    # Морфология
+    morph_kernel: 9
+    morph_close_iterations: 2
+    
+    # Слияние контуров
+    merge_gap_px: 0.0
+    merge_by_size: true
+    merge_size_factor: 1.0
+  
+  # Параметры фильтра Калмана (color_threshold_kalman)
+  kalman:
+    dt: 0.0333              # Время между кадрами (1/30 для 30 FPS)
+    process_noise: 0.01  # Шум процесса / обратная плавность сглаживания
+    measurement_noise: 0.1 # Шум измерения / обратное доверие к детектору
+
+metrics:
+  history_size: 30
+  items:
+    - name: speed
+      smoothing_frames: 5
+    - name: distance
+    - name: pause
+      speed_threshold: 3.0
+      min_pause_s: 0.5
+    - name: heatmap
+      decay: 1.00
+      blur_kernel: 9
+
+visualizers:
+  heatmap:
+    enabled: true
+    colormap: "INFERNO"         # INFERNO, JET, PLASMA, VIRIDIS, HOT
+    opacity: 0.65
+  contour:
+    enabled: true
+    color: [0, 255, 0]
+    thickness: 2
+  center_point:
+    enabled: true
+    color: [0, 0, 255]
+    radius: 8
+
+renderers:
+  display:
+    enabled: true
+    visualizers: ["heatmap", "contour", "center_point"]  # Всё для отладки
+    window_name: "Mouse Tracker"
+  
+  video_file:
+    enabled: true
+    visualizers: ["contour", "center_point"]  # Без heatmap для чистого видео
+    path: "ExportData/tracking_result.mp4"
+    codec: "mp4v"
+  
+  csv:
+    enabled: true
+    visualizers: []  # CSV не использует визуализаторы
+    path: "ExportData/tracking_data.csv"
+
+  snapshots:
+    enabled: true
+    output_dir: "ExportData/snapshots"
+    interval_frames: 0      # Сохранять каждые 300 кадров (0 = отключить)
+    save_at_end: true         # Сохранить финальный снимок после завершения
+    end_filename: "final_snapshot.png"  # Имя финального файла

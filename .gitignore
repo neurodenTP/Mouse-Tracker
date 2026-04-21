@@ -1,3 +1,6 @@
+ImportData/
+ExportData/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -74,6 +77,8 @@ docs/_build/
 # PyBuilder
 .pybuilder/
 target/
+
+
 
 # Jupyter Notebook
 .ipynb_checkpoints
