@@ -25,6 +25,8 @@ ImportData/ — папка с видео (если нужно)
 
 ExportData/ — создайте пустую папку для результатов
 
+Готовые exe релизы: https://github.com/neurodenTP/Mouse-Tracker/releases
+
 
 ## Выходные данные
 
